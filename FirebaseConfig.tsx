@@ -1,8 +1,7 @@
 
 import { initializeApp } from "firebase/app";
 import {getAuth} from"firebase/auth";
-import {getStorage} from"firebase/storage";
-
+import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyDCK90cYjVtshoykiTjMysRN7Z1oAEfp78",
   authDomain: "veridian-c0db7.firebaseapp.com",
@@ -15,4 +14,4 @@ const firebaseConfig = {
 
 export const FIREBASE_APP = initializeApp(firebaseConfig);
 export const FIREBASE_AUTH= getAuth(FIREBASE_APP);
-export const FIREBASE_STORAGE= getStorage(FIREBASE_APP);
+export const FIREBASE_DB = getFirestore(FIREBASE_APP);

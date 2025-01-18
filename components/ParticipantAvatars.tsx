@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 
-
-const ParticipantAvatars: React.FC<ParticipantAvatarsProps> = ({ participants }) => {
+const ParticipantAvatars = ({ participants }) => {
     return (
         <View style={styles.avatarContainer}>
             {participants.map((uri, index) => (

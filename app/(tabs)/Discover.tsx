@@ -10,11 +10,14 @@ import {
 import styles from '../../styles2';
 import roomsData from '../../discoverData.json';
 import postsData from '../../postsData.json';
-import ParticipantAvatars from "@/components/ParticipantAvatars";
+import ParticipantAvatars from "../../components/ParticipantAvatars";
 import RoomDetailsScreen from '../../RoomDetailsScreen'; // Import the modal component
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {router, useNavigation} from "expo-router";
 
-const DiscoverScreen = ({ navigation }) => {
+const DiscoverScreen = () => {
+    const navigation = useNavigation();
+
     const popularRooms = roomsData.filter((room) => room.type === 'room');
 
     const [isDetailsPopupVisible, setDetailsPopupVisible] = useState(false); // State for Modal Visibility
@@ -34,8 +37,15 @@ const DiscoverScreen = ({ navigation }) => {
 
     const renderPostItem = ({ item }) => {
         return (
-            <TouchableOpacity onPress={() => navigation.navigate('PostDetails', { post: item })}>
-                <View style={{ ...styles.card, marginVertical: 5 }}>
+            <TouchableOpacity
+                onPress={() => {
+                    console.log('Navigating to PostDetails with:', item);
+                    console.log('Current Route:', router.asPath);
+                    router.push({
+                        pathname: '/PostDetails', // Navigate to PostDetails route
+                        params: { post: item },  // Pass the selected post data as params
+                    });
+                }}>                <View style={{ ...styles.card, marginVertical: 5 }}>
                     {item.imageUrl && (
                         <Image
                             source={{ uri: item.imageUrl }}
