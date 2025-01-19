@@ -17,7 +17,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
         header: () => (
           <View style={styles.headerContainer}>
             <CommonHeader />
@@ -58,19 +58,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen 
-        name="addpost"
+        name="Progress"
         options={{
-          title: 'Add Post',
+          title: 'Progress',
           // Add your tab icons here
         }}
       />
-      <Tabs.Screen 
-        name="profile"
-        options={{
-          title: 'Profile',
-          // Add your tab icons here
-        }}
-      />
+     
       {/* Add other tab screens here */}
     </Tabs>
   );

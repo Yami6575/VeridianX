@@ -6,18 +6,22 @@ import {
     Image,
     TouchableOpacity,
     Modal,
+    Button,
 } from 'react-native';
+import { useRouter } from "expo-router";
 import styles from '../../styles2';
 import roomsData from '../../discoverData.json';
 import postsData from '../../postsData.json';
-import ParticipantAvatars from "../../components/ParticipantAvatars";
+import ParticipantAvatars from "@/components/ParticipantAvatars";
+
 import RoomDetailsScreen from '../../RoomDetailsScreen'; // Import the modal component
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {router, useNavigation} from "expo-router";
-
-const DiscoverScreen = () => {
-    const navigation = useNavigation();
-
+import AddPost from '../../components/addPost';
+const DiscoverScreen = ({ navigation }) => {
+    const [isPopupVisible, setPopupVisible] = useState(false); // State to toggle modal
+    const openPopup = () => setPopupVisible(true); // Show modal
+    const closePopup = () => setPopupVisible(false); //
+    const router = useRouter();
     const popularRooms = roomsData.filter((room) => room.type === 'room');
 
     const [isDetailsPopupVisible, setDetailsPopupVisible] = useState(false); // State for Modal Visibility
@@ -37,15 +41,8 @@ const DiscoverScreen = () => {
 
     const renderPostItem = ({ item }) => {
         return (
-            <TouchableOpacity
-                onPress={() => {
-                    console.log('Navigating to PostDetails with:', item);
-                    console.log('Current Route:', router.asPath);
-                    router.push({
-                        pathname: '/PostDetails', // Navigate to PostDetails route
-                        params: { post: item },  // Pass the selected post data as params
-                    });
-                }}>                <View style={{ ...styles.card, marginVertical: 5 }}>
+            <TouchableOpacity onPress={() => navigation.navigate('PostDetails', { post: item })}>
+                <View style={{ ...styles.card, marginVertical: 5 }}>
                     {item.imageUrl && (
                         <Image
                             source={{ uri: item.imageUrl }}
@@ -130,11 +127,11 @@ const DiscoverScreen = () => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('Discover')}>
+           <View style={styles.header}>
+                <TouchableOpacity onPress={() => router.push('/Discover')}>
                     <Text style={[styles.headerText, styles.headerSelect]}>Discover</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('RoomsStack')}>
+                <TouchableOpacity onPress={() => router.push('/RoomsScreen')}>
                     <Text style={styles.headerText}>Rooms</Text>
                 </TouchableOpacity>
                 <TouchableOpacity>
@@ -159,6 +156,10 @@ const DiscoverScreen = () => {
                     showsHorizontalScrollIndicator={false}
                 />
             </View>
+            <Button title="Add Post" onPress={openPopup} />
+
+
+            <AddPost visible={isPopupVisible} onClose={closePopup} />
             <FlatList
                 data={postsData}
                 keyExtractor={(item) => String(item.id)}

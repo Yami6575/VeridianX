@@ -6,11 +6,18 @@ import { DataProvider } from "@/components/trackerContext";
 const StackLayout = () => {
   return (
     <SafeAreaView style={styles.container}>
-       <DataProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
+      <DataProvider>
+        <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen 
+          name="RoomsScreen" 
+          options={{ 
+            presentation: 'modal',
+            headerShown: false,
+            headerTitle: 'Rooms'
+          }} 
+        />
       </Stack>
-      
       </DataProvider>
     </SafeAreaView>
   );  

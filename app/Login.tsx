@@ -24,7 +24,7 @@ const Login = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
       if (userCredential.user) {
-        router.replace('/(tabs)/home');
+        router.replace('./start');
       }
     } catch (error) {
       const firebaseError = error as FirebaseError;
@@ -64,7 +64,7 @@ const Login = () => {
           trigger: 0,
         };
         await setDoc(doc(FIREBASE_DB, 'users', userCredential.user.uid), userData);
-        router.replace('/(tabs)/home');
+        router.replace('./start');
       }
     } catch (error) {
       const firebaseError = error as FirebaseError;

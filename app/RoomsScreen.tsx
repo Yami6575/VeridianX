@@ -12,6 +12,7 @@ import Data from '../discoverData.json';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ParticipantAvatars from '../components/ParticipantAvatars';
 import RoomDetailsScreen from '../RoomDetailsScreen';
+import { useRouter } from 'expo-router';
 
 const participants = [
     'https://randomuser.me/api/portraits/men/1.jpg',
@@ -20,6 +21,7 @@ const participants = [
 ];
 
 const RoomsScreen = ({ navigation }) => {
+    const router = useRouter();
     const [selectedTab, setSelectedTab] = useState('Latest');
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const [isDetailsPopupVisible, setDetailsPopupVisible] = useState(false);
@@ -72,17 +74,15 @@ const RoomsScreen = ({ navigation }) => {
         <View style={styles.container}>
             {/* Header */}
             <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('Discover')}>
-                    <Text style={styles.headerText}>Discover</Text>
+                <TouchableOpacity onPress={() => router.push('/Discover')}>
+                    <Text style={[styles.headerText, styles.headerSelect]}>Discover</Text>
                 </TouchableOpacity>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <TouchableOpacity>
-                        <Text style={[styles.headerText, styles.headerSelect]}>Rooms</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style={styles.headerText}>Top Charts</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity onPress={() => router.push('/RoomsScreen')}>
+                    <Text style={styles.headerText}>Rooms</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Text style={styles.headerText}>Top Charts</Text>
+                </TouchableOpacity>
             </View>
 
             {/* Dropdown */}

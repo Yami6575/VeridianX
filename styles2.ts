@@ -221,6 +221,6 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5, // Shadow for Android
     },
-});
+});  
 
 export default styles;
